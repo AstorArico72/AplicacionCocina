@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arico.aplicacioncocina.databinding.ActivityMainBinding;
 import com.arico.aplicacioncocina.modelos.Orden;
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Orden> ordenes) {
                 CargarOrdenes(ordenes);
+            }
+        });
+
+        binder.main.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ViewModel.RecibirOrdenes();
+                binder.main.setRefreshing(false);
             }
         });
 
